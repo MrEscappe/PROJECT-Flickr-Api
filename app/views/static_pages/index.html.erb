@@ -1,0 +1,17 @@
+<h1>Simple User Photo Finder!</h1>
+
+<p>Enter a user id to find their photos:</p>
+
+<%= form_with method: :get do %>
+    <%= text_field_tag :user_id, 'Flickr'%>
+    <%= submit_tag 'Find Photos' %>
+<% end %>
+
+<% if params[:user_id].present? %>
+    <h2>Photos for <%= params[:user_id] %></h2>
+    <% @photos.each do |photo| %>
+        <a href=<%=Flickr.url_short(photo)%>><%= image_tag "#{Flickr.url_q(photo)}, alt: #{photo.title}" %> </a>
+    <%end%>
+    <% else %>
+    <h2>User not found</h2>
+<% end %>
